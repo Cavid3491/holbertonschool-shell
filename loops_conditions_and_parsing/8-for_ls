@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script lists current directory files and cuts name after the first dash
+
+for file in *; do
+  name="${file#*-}"
+  echo "$name"
+done
+
+

@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# This script displays "Best School" 10 times using until
+# This script displays "Best School" 10 times using while
 
 i=0
-until [ "$i" -gt 9 ]; do
+while [ "$i" -le 9 ]; do
   if [ "$i" -eq 9 ]; then
     echo "hi"
   fi
   echo "Best School"
   i=$((i + 1))
 done
-
 

@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-# comment
-for pid in /proc/[0-9]*; do
-  name=$(cat "$pid/comm" 2>/dev/null)
-  if [[ "$name" == "bash" ]]; then
-    echo "$pid $name"
-  fi
-done
+#comment
+# shellcheck disable=SC2009
+ps -eo pid,comm | grep '[b]ash'
 

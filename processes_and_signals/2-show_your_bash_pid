@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# comment
+for pid in /proc/[0-9]*; do
+  cmd=$(basename "$(readlink -f "$pid/exe" 2>/dev/null)")
+  if [[ "$cmd" == *bash* ]]; then
+    echo "${pid#/proc/} $cmd"
+  fi
+done

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#comment
+# shellcheck disable=SC2009
+
+for pid in /proc/[0-9]*; do
+    cmd=$(basename "$(readlink "$pid/exe" 2>/dev/null)" 2>/dev/null)
+    [[ $cmd == *bash* ]] && echo "${pid##*/} $cmd"
+done

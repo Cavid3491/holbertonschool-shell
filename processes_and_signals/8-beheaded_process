@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
-# comment
+#!/bin/bash
+# shellcheck disable=SC2009
 
-for pid in $(ls /proc | grep -E '^[0-9]+$'); do
-    cmd=$(tr '\0' ' ' < /proc/$pid/cmdline 2>/dev/null)
+for pid in /proc/[0-9]*; do
+    cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
     if echo "$cmd" | grep -q "7-highlander"; then
-        kill "$pid"
+        kill "${pid##*/}"
     fi
 done

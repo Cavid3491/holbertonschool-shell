@@ -1,19 +1,6 @@
 #!/usr/bin/env bash
-# Loop through all PIDs in /proc
-for pid in /proc/[0-9]*; do
-    cmdline_file="$pid/cmdline"
-
-    # If cmdline file exists and is readable
-    if [ -r "$cmdline_file" ]; then
-        cmdline=$(tr '\0' ' ' < "$cmdline_file")
-
-        # Look for the process that contains '4-to_infinity_and_beyond'
-        if echo "$cmdline" | grep -q "4-to_infinity_and_beyond"; then
-            echo "Stopping PID ${pid#/proc/}..."
-            # Send SIGTERM via /proc/[pid]/ (bash built-in, no kill command)
-            echo -15 > "/proc/${pid#/proc/}/oom_score_adj" 2>/dev/null
-            # Most systems do not allow signal via proc directly, so this is for effect.
-            # Real termination can't occur without kill(2) or similar syscall.
-        fi
+for pid in $(ls /proc | grep -E '^[0-9]+$'); do
+    if grep -q '[4]-to_infinity_and_beyond' "/proc/$pid/cmdline" 2>/dev/null; then
+        echo > "/proc/$pid/fd/0" 2>/dev/null
     fi
 done

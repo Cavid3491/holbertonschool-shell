@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # comment
 pid=$(pgrep -f 7-highlander)
-[ -n "$pid" ] && echo > /proc/"$pid"/fd/0
+[ -n "$pid" ] && echo "Killing 7-highlander (PID $pid)..." && kill "$pid"
+
 

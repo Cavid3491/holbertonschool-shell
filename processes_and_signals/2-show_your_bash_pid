@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-#comment
+#!/bin/bash
+# This script shows lines with bash processes (to find your Bash PID)
 # shellcheck disable=SC2009
-ps -eo pid,comm | grep '[b]ash'
-
+ps -f | grep bash

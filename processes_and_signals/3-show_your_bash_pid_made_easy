@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
-#comment
-# shellcheck disable=SC2009
-
+# Iterate through all PIDs in /proc
 for pid in /proc/[0-9]*; do
-    cmd=$(basename "$(readlink "$pid/exe" 2>/dev/null)" 2>/dev/null)
-    [[ $cmd == *bash* ]] && echo "${pid##*/} $cmd"
+    # Get the PID number from the path
+    pid_num="${pid#/proc/}"
+
+    # Check if we can read the /proc/PID/comm file
+    if [ -r "$pid/comm" ]; then
+        # Read the process name
+        name=$(cat "$pid/comm")
+
+        # Check if the name contains "bash"
+        if echo "$name" | grep -q "bash"; then
+            echo "$pid_num $name"
+        fi
+    fi
 done
+

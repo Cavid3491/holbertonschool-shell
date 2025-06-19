@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# comment
 for pid in $(ls /proc | grep -E '^[0-9]+$'); do
     if grep -q '[4]-to_infinity_and_beyond' "/proc/$pid/cmdline" 2>/dev/null; then
         echo > "/proc/$pid/fd/0" 2>/dev/null
